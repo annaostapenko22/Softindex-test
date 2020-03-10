@@ -36,7 +36,7 @@ div.table-title {
    background:#1b1e24;
    border-bottom:4px solid #9ea7af;
    border-right: 1px solid #343a45;
-   font-size:23px;
+   font-size:17px;
    font-weight: 100;
    padding:24px;
    text-align:left;
@@ -60,6 +60,7 @@ div.table-title {
    font-size:16px;
    font-weight:normal;
    text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+   position: relative;
  }
   
  tr:hover td {
@@ -95,10 +96,10 @@ div.table-title {
  td {
    background:#FFFFFF;
    padding:20px;
-   text-align:left;
+   text-align:center;
    vertical-align:middle;
    font-weight:300;
-   font-size:18px;
+   font-size:17px;
    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
    border-right: 1px solid #C1C3D1;
  }
@@ -130,4 +131,8 @@ div.table-title {
  td.text-right {
    text-align: right;
  }
- 
+
+ .delete {
+   background-color: transparent;
+  
+ }
