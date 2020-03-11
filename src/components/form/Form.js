@@ -21,6 +21,7 @@ const Form = ({ posts, setPosts }) => {
   const [errorPhone, setErrorPhone] = useState(false);
   const [gender, setGender] = useState("");
   const [age, setAge] = useState("");
+  const [errorAge, setErrorAge] = useState(false)
 
   const handleChange = e => {
     const name = e.target.name;
@@ -50,12 +51,13 @@ const Form = ({ posts, setPosts }) => {
     setErrorFirstName(false);
     setErrorLastName(false);
     setErrorPhone(false);
+    setErrorAge(false)
   };
 
   const handleBlur = e => {
     const value = e.target.value;
     const name = e.target.name;
-console.log(name)
+    console.log(name);
     if (name === "firstName") {
       const isEmptyString = isEmptyValidator(value);
       const isShortString = isShortValidator(value, 2);
@@ -64,8 +66,7 @@ console.log(name)
       } else {
         setErrorFirstName(true);
       }
-    }
-    else if (name === "lastName") {
+    } else if (name === "lastName") {
       const isEmptyString = isEmptyValidator(value);
       const isShortString = isShortValidator(value, 2);
       if (!isEmptyString && !isShortString) {
@@ -73,21 +74,28 @@ console.log(name)
       } else {
         setErrorLastName(true);
       }
-    }
-    else if (name === "phone") {
-      console.log(name)
-      const isEmptyField = isEmptyValidator(value)
+    } else if (name === "phone") {
+      console.log(name);
+      const isEmptyField = isEmptyValidator(value);
       const isNumberShort = isShortValidator(value, 7);
       const isNumber = isNumberValidator(value);
       if (!isEmptyField && !isNumberShort && isNumber) {
         setPhone(parseInt(value));
-        
       } else {
         setErrorPhone(true);
       }
     }
+    else if (name === "age") {
+      const isEmptyField = isEmptyValidator(value);
+      const isNumber = isNumberValidator(value);
+      if (!isEmptyField && isNumber)  {
+        setAge(parseInt(value))
+      } else {
+        setErrorAge(true)
+      }
+    }
   };
-  console.log("valu=>", phone);
+
   const handleSubmit = async e => {
     e.preventDefault();
     const post = {
@@ -129,7 +137,6 @@ console.log(name)
         <TextField
           error
           id="outlined-error-helper-text"
-          // label="First Name"
           helperText="Incorrect entry."
           variant="outlined"
           name="firstName"
@@ -150,7 +157,6 @@ console.log(name)
         <TextField
           error
           id="outlined-error-helper-text"
-          // label="First Name"
           helperText="Incorrect entry."
           variant="outlined"
           name="lastName"
@@ -168,18 +174,17 @@ console.log(name)
           value={phone}
           onBlur={handleBlur}
         />
-      ) : 
+      ) : (
         <TextField
           error
           id="outlined-error-helper-text"
-          // label="First Name"
           helperText="Incorrect entry."
           variant="outlined"
           name="phone"
           value={phone}
           onFocus={handleFocus}
         />
-      }
+      )}
       <RadioGroup
         aria-label="gender"
         id={styles.radioGroup}
@@ -190,13 +195,25 @@ console.log(name)
         <FormControlLabel value="female" control={<Radio />} label="Female" />
         <FormControlLabel value="male" control={<Radio />} label="Male" />
       </RadioGroup>
+     {!errorAge ? (
       <TextField
         variant="outlined"
         label="Age"
         onChange={handleChange}
         name="age"
         value={age}
+        onBlur={handleBlur}
       />
+     ) : <TextField
+     error
+     id="outlined-error-helper-text"
+
+     helperText="Incorrect entry."
+     variant="outlined"
+     name="age"
+     value={age}
+     onFocus={handleFocus}
+   />} 
       <Button
         variant="contained"
         color="primary"
