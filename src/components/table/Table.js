@@ -3,7 +3,7 @@ import "./Table.module.css";
 import axios from "axios";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import { sortItemsAscending, sortItemsDescending } from "../../helpers/helpers";
-
+import styles from "./Table.module.css"
 const Table = ({ posts, setPosts }) => {
   const sortAscending = (field, isNumber) => {
     const sortedPosts = sortItemsAscending(posts, field, isNumber);
@@ -32,27 +32,27 @@ const Table = ({ posts, setPosts }) => {
             <th>Actions</th>
             <th className="text-left">
               First Name
-              <button onClick={() => sortAscending("firstName")}> ↑</button>
-              <button onClick={() => sortDescending("firstName")}>↓ </button>
+              <button onClick={() => sortAscending("firstName")} className={styles.sortButton}> ↑</button>
+              <button onClick={() => sortDescending("firstName")} className={styles.sortButton}>↓ </button>
             </th>
             <th className="text-left">
               Last Name{" "}
-              <button onClick={() => sortAscending("lastName")}> ↑</button>
-              <button onClick={() => sortDescending("lastName")}>↓ </button>
+              <button onClick={() => sortAscending("lastName")} className={styles.sortButton}> ↑</button>
+              <button onClick={() => sortDescending("lastName")} className={styles.sortButton}>↓ </button>
             </th>
             <th className="text-left">
               Phone{" "}
-              <button onClick={() => sortAscending("phone", true)}> ↑</button>
-              <button onClick={() => sortDescending("phone", true)}>↓ </button>
+              <button onClick={() => sortAscending("phone", true)} className={styles.sortButton}> ↑</button>
+              <button onClick={() => sortDescending("phone", true)} className={styles.sortButton}>↓ </button>
             </th>
             <th className="text-left">
-              Gender <button onClick={() => sortAscending("gender")}> ↑</button>
-              <button onClick={() => sortDescending("gender")}>↓ </button>
+              Gender <button onClick={() => sortAscending("gender")} className={styles.sortButton}> ↑</button>
+              <button onClick={() => sortDescending("gender")} className={styles.sortButton}>↓ </button>
             </th>
             <th className="text-left">
               Age
-              <button onClick={() => sortAscending("age", true)}> ↑</button>
-              <button onClick={() => sortDescending("age", true)}>↓ </button>
+              <button onClick={() => sortAscending("age", true)} className={styles.sortButton}> ↑</button>
+              <button onClick={() => sortDescending("age", true)} className={styles.sortButton}>↓ </button>
             </th>
           </tr>
         </thead>
@@ -60,8 +60,7 @@ const Table = ({ posts, setPosts }) => {
           {posts.map(post => (
             <tr key={post.id}>
               <td>
-                {" "}
-                <button className="delete" onClick={() => deletePost(post.id)}>
+                <button className="delete" onClick={() => deletePost(post.id)} className={styles.deleteButton}>
                   <HighlightOffIcon />
                 </button>
               </td>

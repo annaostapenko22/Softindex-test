@@ -1,6 +1,15 @@
 // VALIDATION
 
+export const isNumberValidator = value => !isNaN(parseInt(value));
+export const isEmptyValidator = value => value.trim() === "";
+export const isEmailValidator = value => {
+  const emailRegex = /.+@.+\..+/;
+  return emailRegex.test(value);
+};
+export const isShortValidator = (value, min) => value.length < min;
+
 // SORT
+
 export const sortItemsAscending = (data, field, isNumber) => {
   const dataToSort = [...data];
   if (isNumber) {

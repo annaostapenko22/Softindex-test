@@ -38,7 +38,7 @@ div.table-title {
    border-right: 1px solid #343a45;
    font-size:17px;
    font-weight: 100;
-   padding:24px;
+   padding:15px;
    text-align:left;
    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
    vertical-align:middle;
@@ -109,9 +109,34 @@ div.table-title {
  }
  
  th.text-left {
+  display: block;
    text-align: left;
+   position: relative;
  }
- 
+ .sortButton{
+   background-color: transparent;
+   border: none;
+   color: #fff;
+   cursor: pointer;
+   font-weight: 900;
+   font-size: 20px;
+ }
+ .sortButton:hover {
+   transform: scale(1.2);
+ }
+ .deleteButton {
+   background-color: transparent;
+   border: none;
+   cursor: pointer;
+   color: red;
+   outline: none;
+ }
+
+ .deleteButton:hover {
+  
+   transform: scale(1.1);
+ }
+
  th.text-center {
    text-align: center;
  }
