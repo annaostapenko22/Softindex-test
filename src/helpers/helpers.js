@@ -2,11 +2,8 @@
 
 export const isNumberValidator = value => !isNaN(parseInt(value));
 export const isEmptyValidator = value => value.trim() === "";
-export const isEmailValidator = value => {
-  const emailRegex = /.+@.+\..+/;
-  return emailRegex.test(value);
-};
 export const isShortValidator = (value, min) => value.length < min;
+export const isMaleValidator = value => (value === "male" ? true : false);
 
 // SORT
 
@@ -32,4 +29,12 @@ export const sortItemsDescending = (data, field, isNumber) => {
     );
   }
   return dataToSort;
+};
+
+export const sortBooleanItems = (data, field, bool) => {
+  const dataToSort = [...data];
+  if (bool === true) {
+    return dataToSort.sort((a, b) => a[field] - b[field]);
+  }
+  return dataToSort.sort((a, b) => b[field] - a[field]);
 };

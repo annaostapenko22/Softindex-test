@@ -9,7 +9,8 @@ import styles from "./Form.module.css";
 import {
   isEmptyValidator,
   isShortValidator,
-  isNumberValidator
+  isNumberValidator,
+  isMaleValidator
 } from "../../helpers/helpers";
 
 const Form = ({ posts, setPosts }) => {
@@ -19,9 +20,9 @@ const Form = ({ posts, setPosts }) => {
   const [errorLastName, setErrorLastName] = useState(false);
   const [phone, setPhone] = useState("");
   const [errorPhone, setErrorPhone] = useState(false);
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState();
   const [age, setAge] = useState("");
-  const [errorAge, setErrorAge] = useState(false)
+  const [errorAge, setErrorAge] = useState(false);
 
   const handleChange = e => {
     const name = e.target.name;
@@ -38,7 +39,8 @@ const Form = ({ posts, setPosts }) => {
         setPhone(value);
         break;
       case "gender":
-        setGender(value);
+        const isMale = isMaleValidator(value);
+        setGender(isMale);
         break;
       case "age":
         setAge(value);
@@ -51,13 +53,11 @@ const Form = ({ posts, setPosts }) => {
     setErrorFirstName(false);
     setErrorLastName(false);
     setErrorPhone(false);
-    setErrorAge(false)
+    setErrorAge(false);
   };
-
   const handleBlur = e => {
     const value = e.target.value;
     const name = e.target.name;
-    console.log(name);
     if (name === "firstName") {
       const isEmptyString = isEmptyValidator(value);
       const isShortString = isShortValidator(value, 2);
@@ -75,7 +75,6 @@ const Form = ({ posts, setPosts }) => {
         setErrorLastName(true);
       }
     } else if (name === "phone") {
-      console.log(name);
       const isEmptyField = isEmptyValidator(value);
       const isNumberShort = isShortValidator(value, 7);
       const isNumber = isNumberValidator(value);
@@ -84,14 +83,13 @@ const Form = ({ posts, setPosts }) => {
       } else {
         setErrorPhone(true);
       }
-    }
-    else if (name === "age") {
+    } else if (name === "age") {
       const isEmptyField = isEmptyValidator(value);
       const isNumber = isNumberValidator(value);
-      if (!isEmptyField && isNumber)  {
-        setAge(parseInt(value))
+      if (!isEmptyField && isNumber) {
+        setAge(parseInt(value));
       } else {
-        setErrorAge(true)
+        setErrorAge(true);
       }
     }
   };
@@ -105,7 +103,13 @@ const Form = ({ posts, setPosts }) => {
       gender,
       age
     };
-    if (firstName && lastName && phone && gender && age) {
+    if (
+      !errorFirstName &&
+      !errorLastName &&
+      !errorPhone &&
+      !errorAge &&
+      gender !== ""
+    ) {
       const {
         data: { name }
       } = await axios.post(
@@ -118,7 +122,6 @@ const Form = ({ posts, setPosts }) => {
       setLastName("");
       setPhone("");
       setAge("");
-      setGender("");
     }
   };
 
@@ -190,30 +193,30 @@ const Form = ({ posts, setPosts }) => {
         id={styles.radioGroup}
         onChange={handleChange}
         name="gender"
-        value={gender}
       >
         <FormControlLabel value="female" control={<Radio />} label="Female" />
         <FormControlLabel value="male" control={<Radio />} label="Male" />
       </RadioGroup>
-     {!errorAge ? (
-      <TextField
-        variant="outlined"
-        label="Age"
-        onChange={handleChange}
-        name="age"
-        value={age}
-        onBlur={handleBlur}
-      />
-     ) : <TextField
-     error
-     id="outlined-error-helper-text"
-
-     helperText="Incorrect entry."
-     variant="outlined"
-     name="age"
-     value={age}
-     onFocus={handleFocus}
-   />} 
+      {!errorAge ? (
+        <TextField
+          variant="outlined"
+          label="Age"
+          onChange={handleChange}
+          name="age"
+          value={age}
+          onBlur={handleBlur}
+        />
+      ) : (
+        <TextField
+          error
+          id="outlined-error-helper-text"
+          helperText="Incorrect entry."
+          variant="outlined"
+          name="age"
+          value={age}
+          onFocus={handleFocus}
+        />
+      )}
       <Button
         variant="contained"
         color="primary"

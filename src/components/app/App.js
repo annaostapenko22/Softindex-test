@@ -21,8 +21,8 @@ const App = () => {
         });
         setPosts(resItems);
       }
-      getData();
     };
+    getData();
   }, []);
 
   return (
